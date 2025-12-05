@@ -1,193 +1,176 @@
-/* NEON GLOW VERSION – BLACK THEME */
+<!-- HEADER -->
+<header>
+    <div class="logo">Quán cơm Huy</div>
+    <nav>
+        <a href="#home">Trang chủ</a>
+        <a href="#menu">Thực đơn</a>
+        <a href="#about">Giới thiệu</a>
+        <a href="#order">Đặt món</a>
+        <a href="#promo">Khuyến mãi</a>
+        <a href="#contact">Liên hệ</a>
+        <a href="#reviews">Đánh giá</a>
+    </nav>
+</header>
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #000000; /* NỀN ĐEN */
-    color: #39FF14;
-}
+<!-- PHẦN THỰC ĐƠN (MENU) -->
+<section id="menu" class="menu-section">
+    <h2>Thực đơn hôm nay</h2>
+    <div class="menu-grid">
+        <div class="menu-item">
+            <img src="https://via.placeholder.com/150" alt="Cơm gà chiên">
+            <h3>Cơm gà chiên</h3>
+            <p>35.000đ</p>
+        </div>
+        <div class="menu-item">
+            <img src="https://via.placeholder.com/150" alt="Cơm gà luộc">
+            <h3>Cơm gà luộc</h3>
+            <p>35.000đ</p>
+        </div>
+        <div class="menu-item">
+            <img src="https://via.placeholder.com/150" alt="Cơm gà xé">
+            <h3>Cơm gà xé</h3>
+            <p>30.000đ</p>
+        </div>
+    </div>
+</section>
 
-/* RESET */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
+<!-- PHẦN KHUYẾN MÃI -->
+<section id="promo" class="promo-section">
+    <h2>Khuyến mãi đặc biệt</h2>
+    <p>Giảm 10% cho đơn hàng đầu tiên và miễn phí nước uống cho hóa đơn trên 100k!</p>
+</section>
 
-/* HEADER */
+<!-- PHẦN ĐẶT MÓN NHANH -->
+<section id="order" class="order-section">
+    <h2>Đặt món ngay</h2>
+    <p>Số điện thoại đặt món: 091.133.1979 hoặc 091.904.1179</p>
+    <form>
+        <input type="text" placeholder="Họ tên" required>
+        <input type="tel" placeholder="Số điện thoại" required>
+        <textarea placeholder="Ghi chú" rows="3"></textarea>
+        <button type="submit">Gửi đơn</button>
+    </form>
+</section>
+
+<!-- PHẦN ĐÁNH GIÁ -->
+<section id="reviews" class="reviews-section">
+    <h2>Đánh giá khách hàng</h2>
+    <div class="review">
+        <p>"Cơm ngon, phục vụ nhiệt tình!" - Lan Anh</p>
+    </div>
+    <div class="review">
+        <p>"Giá cả hợp lý, đồ ăn đầy đặn." - Minh Tuấn</p>
+    </div>
+</section>
+
+<!-- PHẦN LIÊN HỆ -->
+<section id="contact" class="contact-section">
+    <h2>Thông tin liên hệ</h2>
+    <p>Địa chỉ: 37 Vũ Anh Ba, phường Đông Gia Nghĩa, Lâm Đồng</p>
+    <p>Số điện thoại đặt món: 091.133.1979 hoặc 091.904.1179</p>
+    <p>Email: dohuyhuyisme2@gmail.com</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>&copy; 2025 Quán cơm Huy | Kết nối với chúng tôi:</p>
+    <p>
+        <a href="#">Facebook</a> | <a href="#">Instagram</a> | <a href="#">Zalo</a>
+    </p>
+</footer>
+
+<style>
 header {
+    background: #0a0a0a;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background-color: #000000;
-    padding: 15px 30px;
-    color: #39FF14;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-
-    box-shadow: 0 0 20px #39FF14aa;
-    border-bottom: 1px solid #39FF14;
+    justify-content: space-between;
+    padding: 15px 20px;
 }
-
-header .logo {
-    font-size: 26px;
+.logo {
+    font-size: 24px;
     font-weight: bold;
-    text-shadow: 0 0 10px #39FF14;
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
 }
-
 header nav a {
-    color: #39FF14;
-    margin-left: 20px;
+    color: #00ffff;
     text-decoration: none;
+    margin: 0 10px;
     font-weight: bold;
-    transition: 0.2s;
+    text-shadow: 0 0 5px #00ffff;
 }
-
 header nav a:hover {
-    text-shadow: 0 0 12px #39FF14;
+    color: #fff;
 }
-
-/* HERO */
-.hero {
-    background: url('https://via.placeholder.com/1200x400') center/cover no-repeat;
+.menu-section, .promo-section, .order-section, .reviews-section, .contact-section, footer {
+    padding: 40px;
+    background: #111;
     color: white;
     text-align: center;
-    padding: 120px 20px;
-
-    box-shadow: inset 0 0 30px #00ffff66;
-
-    /* Đổ lớp overlay tối để hợp nền đen */
-    background-color: #00000055;
-    background-blend-mode: darken;
 }
-
-.hero button {
-    background-color: #39FF14;
-    border: none;
-    padding: 12px 30px;
-    font-weight: bold;
-    cursor: pointer;
+.menu-grid {
     margin-top: 20px;
-    color: #000;
-    border-radius: 5px;
-
-    box-shadow: 0 0 15px #39FF14;
-    transition: 0.3s;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
 }
-
-.hero button:hover {
-    box-shadow: 0 0 25px #39FF14;
-    transform: scale(1.05);
+.menu-item {
+    background: #1a1a1a;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
 }
-
-/* SECTION */
-section {
-    padding: 60px 20px;
-    text-align: center;
-    color: #39FF14;
-}
-
-/* MENU ITEMS */
-.menu-items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-}
-
-.menu-items .item {
-    background-color: #000000;
-    color: #39FF14;
-    padding: 20px;
-    border-radius: 12px;
-    width: 250px;
-
-    border: 1px solid #39FF14;
-    box-shadow: 0 0 20px #39FF1477;
-    transition: 0.25s;
-}
-
-.menu-items .item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 35px #39FF14cc;
-}
-
-.menu-items .item img {
+.menu-item img {
     width: 100%;
     border-radius: 10px;
-    margin-bottom: 15px;
-    box-shadow: 0 0 15px #000;
 }
-
-/* FORM */
-form {
+.menu-item h3 {
+    margin-top: 10px;
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+}
+.menu-item p {
+    font-size: 18px;
+    margin-top: 5px;
+    color: #fff;
+}
+.promo-section p, .review p, .contact-section p, footer p {
+    color: #00ffff;
+    text-shadow: 0 0 8px #00ffff;
+}
+.order-section form {
     display: flex;
     flex-direction: column;
+    gap: 10px;
     max-width: 400px;
     margin: 0 auto;
 }
-
-form input, form textarea {
-    padding: 12px;
-    margin: 10px 0;
+.order-section input, .order-section textarea {
+    padding: 10px;
     border-radius: 5px;
-    border: 1px solid #39FF14;
-    background-color: #000;
-    color: #39FF14;
-
-    box-shadow: 0 0 10px #39FF1466 inset;
+    border: none;
 }
-
-form button {
-    background-color: #39FF14;
+.order-section button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #00ffff;
+    color: #111;
     font-weight: bold;
     cursor: pointer;
-    color: #000;
-    padding: 12px;
-    border-radius: 5px;
-
-    box-shadow: 0 0 12px #39FF14;
-    transition: 0.25s;
+    box-shadow: 0 0 15px #00ffff;
 }
-
-form button:hover {
-    box-shadow: 0 0 25px #39FF14;
+.review {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #00ffff;
+    border-radius: 8px;
 }
-
-/* BLOCKQUOTE */
-blockquote {
-    font-style: italic;
-    margin: 20px auto;
-    max-width: 600px;
-    color: #00FFFF;
-    text-shadow: 0 0 12px #00FFFF;
+footer a {
+    color: #00ffff;
+    text-decoration: none;
+    margin: 0 5px;
+    text-shadow: 0 0 5px #00ffff;
 }
-
-/* MAP */
-#map iframe {
-    width: 100%;
-    height: 300px;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 0 25px #00ffff88;
-}
-
-/* FOOTER */
-footer {
-    background-color: #000;
-    color: #39FF14;
-    text-align: center;
-    padding: 15px;
-
-    box-shadow: 0 -2px 15px #39FF14aa;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-    .menu-items {
-        flex-direction: column;
-        align-items: center;
-    }
-}
+</style>
