@@ -1,15 +1,12 @@
+/* NEON GLOW VERSION – BLACK THEME */
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #f5f5f5;
+    background: #000000; /* NỀN ĐEN */
+    color: #39FF14;
 }
 
-header {
-    background: #333;
-    color: white;
-    padding: 15px 20px;
-    text-align: center;
-}
 /* RESET */
 * {
     margin: 0;
@@ -23,28 +20,33 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #111;
+    background-color: #000000;
     padding: 15px 30px;
-    color: #FFD700;
+    color: #39FF14;
     position: sticky;
     top: 0;
     z-index: 100;
+
+    box-shadow: 0 0 20px #39FF14aa;
+    border-bottom: 1px solid #39FF14;
 }
 
 header .logo {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
+    text-shadow: 0 0 10px #39FF14;
 }
 
 header nav a {
-    color: #FFD700;
+    color: #39FF14;
     margin-left: 20px;
     text-decoration: none;
     font-weight: bold;
+    transition: 0.2s;
 }
 
 header nav a:hover {
-    text-decoration: underline;
+    text-shadow: 0 0 12px #39FF14;
 }
 
 /* HERO */
@@ -52,29 +54,42 @@ header nav a:hover {
     background: url('https://via.placeholder.com/1200x400') center/cover no-repeat;
     color: white;
     text-align: center;
-    padding: 100px 20px;
+    padding: 120px 20px;
+
+    box-shadow: inset 0 0 30px #00ffff66;
+
+    /* Đổ lớp overlay tối để hợp nền đen */
+    background-color: #00000055;
+    background-blend-mode: darken;
 }
 
 .hero button {
-    background-color: #FFD700;
+    background-color: #39FF14;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 30px;
     font-weight: bold;
     cursor: pointer;
     margin-top: 20px;
+    color: #000;
+    border-radius: 5px;
+
+    box-shadow: 0 0 15px #39FF14;
+    transition: 0.3s;
 }
 
 .hero button:hover {
-    opacity: 0.8;
+    box-shadow: 0 0 25px #39FF14;
+    transform: scale(1.05);
 }
 
 /* SECTION */
 section {
     padding: 60px 20px;
     text-align: center;
+    color: #39FF14;
 }
 
-/* THỰC ĐƠN */
+/* MENU ITEMS */
 .menu-items {
     display: flex;
     flex-wrap: wrap;
@@ -83,20 +98,30 @@ section {
 }
 
 .menu-items .item {
-    background-color: #222;
-    color: #FFD700;
+    background-color: #000000;
+    color: #39FF14;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 12px;
     width: 250px;
+
+    border: 1px solid #39FF14;
+    box-shadow: 0 0 20px #39FF1477;
+    transition: 0.25s;
+}
+
+.menu-items .item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 35px #39FF14cc;
 }
 
 .menu-items .item img {
     width: 100%;
     border-radius: 10px;
     margin-bottom: 15px;
+    box-shadow: 0 0 15px #000;
 }
 
-/* FORM ĐẶT MÓN */
+/* FORM */
 form {
     display: flex;
     flex-direction: column;
@@ -104,53 +129,59 @@ form {
     margin: 0 auto;
 }
 
-form input, form textarea, form button {
-    padding: 10px;
+form input, form textarea {
+    padding: 12px;
     margin: 10px 0;
     border-radius: 5px;
-    border: none;
-}
+    border: 1px solid #39FF14;
+    background-color: #000;
+    color: #39FF14;
 
-form input, form textarea {
-    width: 100%;
+    box-shadow: 0 0 10px #39FF1466 inset;
 }
 
 form button {
-    background-color: #FFD700;
+    background-color: #39FF14;
     font-weight: bold;
     cursor: pointer;
+    color: #000;
+    padding: 12px;
+    border-radius: 5px;
+
+    box-shadow: 0 0 12px #39FF14;
+    transition: 0.25s;
 }
 
 form button:hover {
-    opacity: 0.8;
+    box-shadow: 0 0 25px #39FF14;
 }
 
-/* KHÁC */
-ul {
-    list-style: none;
-    padding: 0;
-}
-
+/* BLOCKQUOTE */
 blockquote {
     font-style: italic;
     margin: 20px auto;
     max-width: 600px;
+    color: #00FFFF;
+    text-shadow: 0 0 12px #00FFFF;
 }
 
-/* BẢN ĐỒ */
+/* MAP */
 #map iframe {
     width: 100%;
     height: 300px;
     border: none;
     border-radius: 10px;
+    box-shadow: 0 0 25px #00ffff88;
 }
 
 /* FOOTER */
 footer {
-    background-color: #111;
-    color: #FFD700;
+    background-color: #000;
+    color: #39FF14;
     text-align: center;
     padding: 15px;
+
+    box-shadow: 0 -2px 15px #39FF14aa;
 }
 
 /* RESPONSIVE */
