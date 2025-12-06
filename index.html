@@ -206,62 +206,67 @@ a{color:inherit}
 <script src="slider.js"></script>
 <script>
 /* ---------- MENU DATA ---------- */
-const MENU = [const MENU = [
+/* ---------- MENU DATA ---------- */
+const MENU = [
 
- const MENU = [
-  // ---- MÓN GÀ (hiển thị khoảng giá 35K - 50K) ----
+  // ---- MÓN GÀ (35K – 50K) ----
   {
     name: 'Cơm gà chiên',
     price: '35.000đ – 50.000đ',
     min: 35000,
     max: 50000,
-    img: 'https://via.placeholder.com/400x300?text=Cơm+gà+chiên'
+    img: 'image/comchien.png'
   },
   {
     name: 'Cơm gà luộc',
     price: '35.000đ – 50.000đ',
     min: 35000,
     max: 50000,
-    img: 'https://via.placeholder.com/400x300?text=Cơm+gà+luộc'
+    img: 'image/comluoc.png'
   },
   {
     name: 'Cơm gà xé',
     price: '35.000đ – 50.000đ',
     min: 35000,
     max: 50000,
-    img: 'https://via.placeholder.com/400x300?text=Cơm+gà+xé'
+    img: 'image/comxe.png'
   },
 
-  // ---- CƠM PHẦN (đồng giá 35K) ----
-  {name:'Trứng chiên', price:'35.000đ', img:'https://via.placeholder.com/400x300?text=Trứng+chiên'},
-  {name:'Cá bống kho tộ', price:'35.000đ', img:'https://via.placeholder.com/400x300?text=Cá+bống+kho+tộ'},
-  {name:'Thịt kho tàu', price:'35.000đ', img:'https://via.placeholder.com/400x300?text=Thịt+kho+tàu'},
-  {name:'Thịt kho trứng', price:'35.000đ', img:'https://via.placeholder.com/400x300?text=Thịt+kho+trứng'},
-  {name:'Cá lóc kho nghệ', price:'35.000đ', img:'https://via.placeholder.com/400x300?text=Cá+lóc+kho+nghệ'},
-  {name:'Thịt luộc', price:'35.000đ', img:'https://via.placeholder.com/400x300?text=Thịt+luộc'},
+  // ---- CƠM PHẦN (Đồng giá 35K) ----
+  { name:'Trứng chiên', price:'35.000đ', fixed:35000, img:'image/trungchien.png' },
+  { name:'Cá bống kho tộ', price:'35.000đ', fixed:35000, img:'image/cabong.png' },
+  { name:'Thịt kho tàu', price:'35.000đ', fixed:35000, img:'image/thitkotau.png' },
+  { name:'Thịt kho trứng', price:'35.000đ', fixed:35000, img:'image/thitkotrung.png' },
+  { name:'Cá lóc kho nghệ', price:'35.000đ', fixed:35000, img:'image/caloc.png' },
+  { name:'Thịt luộc', price:'35.000đ', fixed:35000, img:'image/thitluoc.png' },
 
   // ---- MÓN THÊM ----
-  {name:'Cơm thêm', price:'5.000đ', img:'https://via.placeholder.com/400x300?text=Cơm+thêm'},
-  {name:'Canh thêm', price:'5.000đ', img:'https://via.placeholder.com/400x300?text=Canh+thêm'},
-  {name:'Rau thêm', price:'5.000đ', img:'https://via.placeholder.com/400x300?text=Rau+thêm'}
+  { name:'Cơm thêm', price:'5.000đ', fixed:5000, img:'image/comthem.png' },
+  { name:'Canh thêm', price:'5.000đ', fixed:5000, img:'image/canhthem.png' },
+  { name:'Rau thêm', price:'5.000đ', fixed:5000, img:'image/rauthem.png' }
 ];
-
 
 /* ---------- RENDER MENU ---------- */
 function renderMenu(filter='') {
   const grid = document.getElementById('menuGrid');
   grid.innerHTML = '';
   const q = (filter||'').toLowerCase().trim();
-  MENU.filter(i => !q || i.name.toLowerCase().includes(q)).forEach(item => {
+
+  MENU.filter(i => !q || i.name.toLowerCase().includes(q))
+      .forEach(item => {
+
     const d = document.createElement('div');
     d.className = 'menu-item';
     d.dataset.name = item.name;
-    d.dataset.price = item.price;
+
+    // Giá dùng để đặt món: ưu tiên min nếu có
+    d.dataset.price = item.min || item.fixed;
     d.dataset.img = item.img;
+
     d.innerHTML = `
       <img src="${item.img}" alt="${item.name}">
       <h3>${item.name}</h3>
-      <div class="price">${item.price.toLocaleString()}đ</div>
+      <div class="price">${item.price}</div>
       <button class="add-to-cart-btn" onclick="openQuantityPopup(this)">Đặt món</button>
     `;
     grid.appendChild(d);
