@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Giỏ hàng - Quán cơm Huy</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="header"><div class="logo">Quán cơm Huy</div></header>
+<main class="container">
+  <h2>Giỏ hàng</h2>
+  <div class="cart-list" id="cartList"></div>
+  <div class="total">Tổng: <span id="totalPrice">0</span>đ</div>
+  <button class="checkout-btn" onclick="goCheckout()">Gửi đơn qua Zalo</button>
+  <a href="index.html" style="display:block;margin-top:12px;text-align:center;">← Quay lại</a>
+</main>
+<script>
+function renderCartPage(){ const list = document.getElementById('cartList'); const cart = JSON.parse(localStorage.getItem('qc_cart') || '{}'); let total=0; list.innerHTML=''; Object.keys(cart).forEach(name=>{ const it=cart[name]; const sub = it.price * it.qty; total+=sub; const div = document.createElement('div'); div.className='cart-item'; div.innerHTML = `<div style="display:flex;gap:12px;align-items:center"><img src="${it.img||''}" style="width:84px;height:64px;object-fit:cover;border-radius:8px"><div><strong>${name}</strong><br>${it.price.toLocaleString()}đ</div></div><div style="text-align:right"><div style="margin-bottom:8px">Số lượng: ${it.qty}</div><div><strong>${sub.toLocaleString()}đ</strong></div></div>`; list.appendChild(div); }); document.getElementById('totalPrice').innerText = total.toLocaleString(); }
+function goCheckout(){ const cart = JSON.parse(localStorage.getItem('qc_cart')||'{}'); if(Object.keys(cart).length===0){alert('Giỏ hàng trống'); return;} let msg='🛵 ĐƠN HÀNG MỚI\n\n'; let total=0; Object.keys(cart).forEach(k=>{ const it=cart[k]; msg += `• ${k} x ${it.qty} = ${(it.qty*it.price).toLocaleString()}đ\n`; total+=it.qty*it.price; }); msg += `\nTổng: ${total.toLocaleString()}đ`; window.open('https://zalo.me/0911331979?text=' + encodeURIComponent(msg),'_blank'); localStorage.removeItem('qc_cart'); window.location.href='index.html'; }
+document.addEventListener('DOMContentLoaded', renderCartPage);
+</script>
+</body>
+</html>
