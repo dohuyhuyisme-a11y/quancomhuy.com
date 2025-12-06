@@ -1,176 +1,347 @@
-<!-- HEADER -->
-<header>
-    <div class="logo">Quán cơm Huy</div>
-    <nav>
-        <a href="#home">Trang chủ</a>
-        <a href="#menu">Thực đơn</a>
-        <a href="#about">Giới thiệu</a>
-        <a href="#order">Đặt món</a>
-        <a href="#promo">Khuyến mãi</a>
-        <a href="#contact">Liên hệ</a>
-        <a href="#reviews">Đánh giá</a>
-    </nav>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Quán cơm Huy</title>
+<style>
+/* ===== RESET & BASE ===== */
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter, Arial, sans-serif}
+body{background:#f8fafc;color:#222;line-height:1.5}
+a{color:inherit}
+
+/* ===== HEADER ===== */
+.header{background:#0b6e4f;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;box-shadow:0 4px 14px rgba(0,0,0,0.06)}
+.logo{color:#fff;font-weight:800;font-size:22px}
+.header nav a{color:#fff;margin-left:16px;text-decoration:none;font-weight:600}
+.header nav a:hover{opacity:0.95}
+
+/* SIDEBAR SEARCH */
+.sidebar-search{position:fixed;left:18px;top:120px;width:220px;background:#fff;padding:12px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.06);z-index:900}
+.sidebar-search input{width:100%;padding:10px;border-radius:8px;border:1px solid #eee}
+
+/* BANNER */
+.banner-slider{max-width:1200px;margin:20px auto;border-radius:12px;overflow:hidden;box-shadow:0 6px 22px rgba(0,0,0,0.12)}
+.slides{display:flex;transition:transform .6s ease}
+.slide{min-width:100%}
+.slide img{width:100%;height:420px;object-fit:cover;display:block}
+.slider-nav{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 12px}
+.slider-nav button{background:rgba(10,92,61,0.85);border:none;color:#fff;padding:10px 12px;border-radius:8px;cursor:pointer}
+.dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:8px}
+.dots button{width:12px;height:12px;border-radius:50%;border:2px solid #0a5c3d;background:transparent;cursor:pointer}
+.dots button.active{background:#0a5c3d}
+
+/* CONTENT */
+.container{max-width:1100px;margin:0 auto;padding:24px}
+.section{margin-bottom:28px}
+.section h2{text-align:center;color:#0b6e4f;font-size:28px;margin-bottom:18px}
+
+/* MENU GRID */
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px}
+.menu-item{background:#fff;border-radius:12px;padding:14px;text-align:center;box-shadow:0 6px 18px rgba(11,110,79,0.06);transition:transform .18s ease,box-shadow .18s ease}
+.menu-item:hover{transform:translateY(-6px);box-shadow:0 12px 28px rgba(11,110,79,0.08)}
+.menu-item img{width:100%;height:150px;object-fit:cover;border-radius:8px;margin-bottom:10px}
+.menu-item h3{color:#0b6e4f;margin-bottom:8px}
+.price{font-weight:700;color:#0b6e4f;margin-bottom:8px}
+.add-to-cart-btn{background:#0b6e4f;color:#fff;border:none;padding:10px;border-radius:8px;cursor:pointer;font-weight:700}
+
+/* POPUPS */
+.popup{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.45);z-index:3000}
+.hidden{display:none}
+.popup-box{background:#fff;padding:18px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.18);width:340px;max-width:92%;text-align:center;position:relative}
+.popup-box img{width:160px;height:120px;object-fit:cover;border-radius:8px;margin-bottom:8px}
+.popup-box .close{position:absolute;right:12px;top:10px;font-size:22px;border:none;background:transparent;cursor:pointer}
+
+/* CART PANEL */
+#cartPopup{position:fixed;top:0;right:0;bottom:0;width:360px;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,0.15);transform:translateX(110%);transition:transform .32s ease;padding:18px;z-index:2800}
+#cartPopup.active{transform:translateX(0)}
+.cart-items{max-height:70vh;overflow:auto;margin-top:12px}
+.cart-item{display:flex;gap:10px;align-items:center;margin-bottom:12px}
+.cart-item img{width:72px;height:56px;object-fit:cover;border-radius:8px}
+.qty-controls{display:flex;gap:8px;align-items:center}
+.qty-controls button{background:#0b6e4f;color:#fff;border:none;padding:6px 8px;border-radius:6px;cursor:pointer}
+.cart-total{margin-top:12px;text-align:right;font-weight:700;color:#0b6e4f}
+.cart-actions{display:flex;gap:8px;margin-top:12px}
+.clear-btn{background:#eee;border:none;padding:8px;border-radius:8px;cursor:pointer}
+.checkout-btn{background:#0b6e4f;color:#fff;border:none;padding:10px;border-radius:8px;cursor:pointer}
+
+/* FLOATING BUTTONS */
+.floating-buttons{position:fixed;right:18px;bottom:18px;display:flex;flex-direction:column;gap:12px;z-index:3200;align-items:center}
+.cart-btn{width:64px;height:64px;border-radius:50%;background:#006837;color:#fff;border:none;font-size:22px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer}
+.cart-count{position:absolute;top:-8px;right:-8px;background:#ff3b30;color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700}
+.zalo-pill{background:#fff;border:2px solid #0b6e4f;color:#0b6e4f;padding:10px 14px;border-radius:999px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.08)}
+
+/* FOOTER */
+.footer{background:#0b6e4f;color:#fff;padding:18px;text-align:center;margin-top:20px;border-top-left-radius:12px;border-top-right-radius:12px}
+
+/* RESPONSIVE */
+@media(max-width:900px){.sidebar-search{display:none}.slide img{height:220px}.menu-grid{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="logo">Quán cơm Huy</div>
+  <nav>
+    <a href="#home">Trang chủ</a>
+    <a href="#menu">Thực đơn</a>
+    <a href="#promo">Khuyến mãi</a>
+    <a href="#contact">Liên hệ</a>
+    <a href="cart.html">Giỏ hàng</a>
+  </nav>
 </header>
 
-<!-- PHẦN THỰC ĐƠN (MENU) -->
-<section id="menu" class="menu-section">
+<div class="sidebar-search" aria-hidden="false">
+  <input id="searchInput" placeholder="Tìm món ăn..." aria-label="Tìm món" />
+</div>
+
+<section class="banner-slider" aria-hidden="false">
+  <div class="slides" id="slides">
+    <div class="slide"><img src="image/Screenshot 2025-12-06 232126.png" alt="Banner 1"></div>
+    <div class="slide"><img src="image/comga.png" alt="Banner 2"></div>
+    <div class="slide"><img src="image/comga1.png" alt="Banner 3"></div>
+  </div>
+  <div class="slider-nav">
+    <button id="prevBtn" aria-label="Previous">❮</button>
+    <button id="nextBtn" aria-label="Next">❯</button>
+  </div>
+  <div class="dots" id="dots"></div>
+</section>
+
+<main class="container" id="home">
+  <section id="menu" class="section">
     <h2>Thực đơn hôm nay</h2>
-    <div class="menu-grid">
-        <div class="menu-item">
-            <img src="https://via.placeholder.com/150" alt="Cơm gà chiên">
-            <h3>Cơm gà chiên</h3>
-            <p>35.000đ</p>
-        </div>
-        <div class="menu-item">
-            <img src="https://via.placeholder.com/150" alt="Cơm gà luộc">
-            <h3>Cơm gà luộc</h3>
-            <p>35.000đ</p>
-        </div>
-        <div class="menu-item">
-            <img src="https://via.placeholder.com/150" alt="Cơm gà xé">
-            <h3>Cơm gà xé</h3>
-            <p>30.000đ</p>
-        </div>
+    <div class="menu-grid" id="menuGrid"></div>
+  </section>
+
+ <section id="promo" class="section-box">
+    <h2>Khuyến mãi</h2>
+    <div class="promo-text">
+        Giảm 10% cho khách mới – Tặng nước cho đơn từ 100k
     </div>
 </section>
 
-<!-- PHẦN KHUYẾN MÃI -->
-<section id="promo" class="promo-section">
-    <h2>Khuyến mãi đặc biệt</h2>
-    <p>Giảm 10% cho đơn hàng đầu tiên và miễn phí nước uống cho hóa đơn trên 100k!</p>
-</section>
+    <h2>Đánh giá</h2>
+      <div class="review">"Cơm ngon, phục vụ nhanh" –Đỗ Hải</div>
+    <div class="review">"Đồ ăn nhiều, giá hợp lý" – Huế Phạm</div>
+    <div class="review">"Đồ ăn ngon, giá rẻ" – Hương Phạm</div>
+    <div class="review">"Ngon nhất Đắk Nông" – Đình Đường</div>
+  </section>
 
-<!-- PHẦN ĐẶT MÓN NHANH -->
-<section id="order" class="order-section">
-    <h2>Đặt món ngay</h2>
-    <p>Số điện thoại đặt món: 091.133.1979 hoặc 091.904.1179</p>
-    <form>
-        <input type="text" placeholder="Họ tên" required>
-        <input type="tel" placeholder="Số điện thoại" required>
-        <textarea placeholder="Ghi chú" rows="3"></textarea>
-        <button type="submit">Gửi đơn</button>
-    </form>
-</section>
+   <section id="contact" class="section-box">
+    <h2>Liên hệ</h2>
 
-<!-- PHẦN ĐÁNH GIÁ -->
-<section id="reviews" class="reviews-section">
-    <h2>Đánh giá khách hàng</h2>
-    <div class="review">
-        <p>"Cơm ngon, phục vụ nhiệt tình!" - Lan Anh</p>
+    <div class="contact-info">
+        <p>📍 Địa chỉ: 37 Vũ Anh Ba, Đông Gia Nghĩa, Lâm Đồng</p>
+        <p>📞 SĐT: 091.133.1979 – 091.904.1179</p>
+        <p>📧 Email: dohuyhuyisme@gmail.com</p>
     </div>
-    <div class="review">
-        <p>"Giá cả hợp lý, đồ ăn đầy đặn." - Minh Tuấn</p>
+
+    <iframe
+        src="https://www.google.com/maps?q=11.998689185555442,107.69414520220066&z=17&output=embed"
+        width="100%" height="350"
+        style="border:0;border-radius:12px;margin-top:20px;"
+        loading="lazy">
+    </iframe>
+</section>
+
+
+<!-- CART PANEL -->
+<aside id="cartPopup" aria-hidden="true">
+  <button class="close-panel" onclick="closeCart()" aria-label="Đóng giỏ hàng">✖</button>
+  <h3>Giỏ hàng</h3>
+  <div class="cart-items" id="cartItems" aria-live="polite"></div>
+  <div class="cart-total">Tổng: <span id="cartTotal">0</span>đ</div>
+  <div class="cart-actions">
+    <button class="clear-btn" onclick="clearCart()">Xóa hết</button>
+    <button class="checkout-btn" onclick="openCheckout()">Thanh toán</button>
+  </div>
+</aside>
+
+<!-- QUANTITY POPUP -->
+<div id="qtyPopup" class="popup hidden" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="popup-box">
+    <button class="close" onclick="closeQuantityPopup()" aria-label="Đóng">✖</button>
+    <h3 id="popupName">Tên món</h3>
+    <img id="popupImg" alt="">
+    <p id="popupPrice"></p>
+    <div style="margin-top:8px">Số lượng: <input id="popupQty" type="number" value="1" min="1"></div>
+    <button class="confirm-btn" onclick="addToCartFromPopup()">Thêm vào giỏ</button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div id="checkoutModal" class="popup hidden" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="popup-box">
+    <button class="close" onclick="closeCheckout()">✖</button>
+    <h3>Xác nhận đặt hàng</h3>
+    <div id="checkoutSummary" style="text-align:left;max-height:260px;overflow:auto;margin-bottom:10px"></div>
+    <input id="custName" placeholder="Họ tên" />
+    <input id="custPhone" placeholder="Số điện thoại" />
+    <textarea id="custAddr" placeholder="Địa chỉ giao"></textarea>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="confirm-btn" style="flex:1" onclick="sendOrderZalo()">Gửi qua Zalo</button>
+      <button class="clear-btn" style="flex:1" onclick="closeCheckout()">Hủy</button>
     </div>
-</section>
+  </div>
+</div>
 
-<!-- PHẦN LIÊN HỆ -->
-<section id="contact" class="contact-section">
-    <h2>Thông tin liên hệ</h2>
-    <p>Địa chỉ: 37 Vũ Anh Ba, phường Đông Gia Nghĩa, Lâm Đồng</p>
-    <p>Số điện thoại đặt món: 091.133.1979 hoặc 091.904.1179</p>
-    <p>Email: dohuyhuyisme2@gmail.com</p>
-</section>
+<!-- ZALO POPUP (PILL) -->
+<div id="zaloPopup" class="popup hidden" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="popup-box">
+    <button class="close" onclick="closeZaloPopup()">✖</button>
+    <h3>Kết nối Zalo</h3>
+    <p>Nhấn nút bên dưới để mở chat Zalo với cửa hàng.</p>
+    <a class="zalo-open" href="https://zalo.me/0911331979" target="_blank" rel="noopener">Mở Zalo</a>
+  </div>
+</div>
 
-<!-- FOOTER -->
-<footer>
-    <p>&copy; 2025 Quán cơm Huy | Kết nối với chúng tôi:</p>
-    <p>
-        <a href="#">Facebook</a> | <a href="#">Instagram</a> | <a href="#">Zalo</a>
-    </p>
-</footer>
+<!-- FLOATING (pill) ZALO BUTTON + CART BUTTON -->
+<div class="floating-buttons">
+  <button id="cartBtn" class="cart-btn" aria-label="Mở giỏ hàng">🛒 <span id="cartCount" class="cart-count">0</span></button>
+  <button id="zaloPill" class="zalo-pill" aria-label="Liên hệ Zalo">Liên hệ Zalo</button>
+</div>
 
-<style>
-header {
-    background: #0a0a0a;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 20px;
+<footer class="footer">© 2025 Quán cơm Huy</footer>
+
+<script src="slider.js"></script>
+<script>
+/* ---------- MENU DATA ---------- */
+const MENU = [const MENU = [
+
+ const MENU = [
+  // ---- MÓN GÀ (hiển thị khoảng giá 35K - 50K) ----
+  {
+    name: 'Cơm gà chiên',
+    price: '35.000đ – 50.000đ',
+    min: 35000,
+    max: 50000,
+    img: 'https://via.placeholder.com/400x300?text=Cơm+gà+chiên'
+  },
+  {
+    name: 'Cơm gà luộc',
+    price: '35.000đ – 50.000đ',
+    min: 35000,
+    max: 50000,
+    img: 'https://via.placeholder.com/400x300?text=Cơm+gà+luộc'
+  },
+  {
+    name: 'Cơm gà xé',
+    price: '35.000đ – 50.000đ',
+    min: 35000,
+    max: 50000,
+    img: 'https://via.placeholder.com/400x300?text=Cơm+gà+xé'
+  },
+
+  // ---- CƠM PHẦN (đồng giá 35K) ----
+  {name:'Trứng chiên', price:'35.000đ', img:'https://via.placeholder.com/400x300?text=Trứng+chiên'},
+  {name:'Cá bống kho tộ', price:'35.000đ', img:'https://via.placeholder.com/400x300?text=Cá+bống+kho+tộ'},
+  {name:'Thịt kho tàu', price:'35.000đ', img:'https://via.placeholder.com/400x300?text=Thịt+kho+tàu'},
+  {name:'Thịt kho trứng', price:'35.000đ', img:'https://via.placeholder.com/400x300?text=Thịt+kho+trứng'},
+  {name:'Cá lóc kho nghệ', price:'35.000đ', img:'https://via.placeholder.com/400x300?text=Cá+lóc+kho+nghệ'},
+  {name:'Thịt luộc', price:'35.000đ', img:'https://via.placeholder.com/400x300?text=Thịt+luộc'},
+
+  // ---- MÓN THÊM ----
+  {name:'Cơm thêm', price:'5.000đ', img:'https://via.placeholder.com/400x300?text=Cơm+thêm'},
+  {name:'Canh thêm', price:'5.000đ', img:'https://via.placeholder.com/400x300?text=Canh+thêm'},
+  {name:'Rau thêm', price:'5.000đ', img:'https://via.placeholder.com/400x300?text=Rau+thêm'}
+];
+
+
+/* ---------- RENDER MENU ---------- */
+function renderMenu(filter='') {
+  const grid = document.getElementById('menuGrid');
+  grid.innerHTML = '';
+  const q = (filter||'').toLowerCase().trim();
+  MENU.filter(i => !q || i.name.toLowerCase().includes(q)).forEach(item => {
+    const d = document.createElement('div');
+    d.className = 'menu-item';
+    d.dataset.name = item.name;
+    d.dataset.price = item.price;
+    d.dataset.img = item.img;
+    d.innerHTML = `
+      <img src="${item.img}" alt="${item.name}">
+      <h3>${item.name}</h3>
+      <div class="price">${item.price.toLocaleString()}đ</div>
+      <button class="add-to-cart-btn" onclick="openQuantityPopup(this)">Đặt món</button>
+    `;
+    grid.appendChild(d);
+  });
 }
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #00ffff;
-    text-shadow: 0 0 10px #00ffff;
+
+/* ---------- SEARCH ---------- */
+document.getElementById('searchInput').addEventListener('input', e => renderMenu(e.target.value));
+
+/* ---------- CART / STORAGE ---------- */
+let cart = JSON.parse(localStorage.getItem('qc_cart') || '{}');
+function saveCart(){ localStorage.setItem('qc_cart', JSON.stringify(cart)); }
+function updateCartCount(){ const total = Object.values(cart).reduce((s,i)=>s+(i.qty||0),0); document.getElementById('cartCount').innerText = total; }
+function renderCart(){ const box = document.getElementById('cartItems'); box.innerHTML=''; let total=0; Object.keys(cart).forEach(name=>{ const it = cart[name]; const sub = it.price*it.qty; total+=sub; const el = document.createElement('div'); el.className='cart-item'; el.innerHTML = `<img src="${it.img}" alt=""><div><strong>${name}</strong><br>${it.price.toLocaleString()}đ</div><div class="qty-controls"><button onclick="changeQty('${name}',-1)">−</button><span>${it.qty}</span><button onclick="changeQty('${name}',1)">+</button></div><div><strong>${sub.toLocaleString()}đ</strong></div>`; box.appendChild(el); }); document.getElementById('cartTotal').innerText = total.toLocaleString(); }
+function openCart(){ document.getElementById('cartPopup').classList.add('active'); renderCart(); document.getElementById('cartPopup').setAttribute('aria-hidden','false'); }
+function closeCart(){ document.getElementById('cartPopup').classList.remove('active'); document.getElementById('cartPopup').setAttribute('aria-hidden','true'); }
+function changeQty(name,delta){ if(!cart[name]) return; cart[name].qty+=delta; if(cart[name].qty<=0) delete cart[name]; saveCart(); renderCart(); updateCartCount(); }
+function clearCart(){ cart = {}; saveCart(); renderCart(); updateCartCount(); }
+
+/* ---------- QUANTITY POPUP ---------- */
+let pendingItem = null;
+function openQuantityPopup(btn){
+  const item = btn.closest('.menu-item');
+  pendingItem = { name: item.dataset.name, price: Number(item.dataset.price), img: item.dataset.img };
+  document.getElementById('popupName').innerText = pendingItem.name;
+  document.getElementById('popupImg').src = pendingItem.img;
+  document.getElementById('popupPrice').innerText = pendingItem.price.toLocaleString() + 'đ';
+  document.getElementById('popupQty').value = 1;
+  document.getElementById('qtyPopup').classList.remove('hidden');
+  document.getElementById('qtyPopup').setAttribute('aria-hidden','false');
 }
-header nav a {
-    color: #00ffff;
-    text-decoration: none;
-    margin: 0 10px;
-    font-weight: bold;
-    text-shadow: 0 0 5px #00ffff;
+function closeQuantityPopup(){ document.getElementById('qtyPopup').classList.add('hidden'); document.getElementById('qtyPopup').setAttribute('aria-hidden','true'); pendingItem = null; }
+function addToCartFromPopup(){ const q = Math.max(1, Number(document.getElementById('popupQty').value||1)); if(!pendingItem) return; const name = pendingItem.name; if(!cart[name]) cart[name] = { price: pendingItem.price, qty:0, img: pendingItem.img }; cart[name].qty += q; saveCart(); updateCartCount(); closeQuantityPopup(); }
+
+/* ---------- CHECKOUT ---------- */
+function openCheckout(){ renderCart(); document.getElementById('checkoutSummary').innerHTML = document.getElementById('cartItems').innerHTML; document.getElementById('checkoutModal').classList.remove('hidden'); document.getElementById('checkoutModal').setAttribute('aria-hidden','false'); }
+function closeCheckout(){ document.getElementById('checkoutModal').classList.add('hidden'); document.getElementById('checkoutModal').setAttribute('aria-hidden','true'); }
+function sendOrderZalo(){
+  const name = document.getElementById('custName').value.trim(); const phone = document.getElementById('custPhone').value.trim(); const addr = document.getElementById('custAddr').value.trim();
+  if(!name || !phone) { alert('Vui lòng nhập họ tên và số điện thoại'); return; }
+  const items = Object.keys(cart);
+  if(items.length === 0) { alert('Giỏ hàng trống'); return; }
+  let total = 0; let msg = '🛵 ĐƠN HÀNG MỚI\n\n';
+  items.forEach(k => { const it = cart[k]; msg += `• ${k} x ${it.qty} = ${(it.qty*it.price).toLocaleString()}đ\n`; total += it.qty*it.price; });
+  msg += `\nTổng: ${total.toLocaleString()}đ\n\nKhách: ${name}\nSĐT: ${phone}\nĐịa chỉ: ${addr}`;
+  const zalo = '0911331979';
+  window.open(`https://zalo.me/${zalo}?text=${encodeURIComponent(msg)}`, '_blank');
+  cart = {}; saveCart(); updateCartCount(); closeCheckout(); closeCart();
 }
-header nav a:hover {
-    color: #fff;
-}
-.menu-section, .promo-section, .order-section, .reviews-section, .contact-section, footer {
-    padding: 40px;
-    background: #111;
-    color: white;
-    text-align: center;
-}
-.menu-grid {
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-}
-.menu-item {
-    background: #1a1a1a;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
-}
-.menu-item img {
-    width: 100%;
-    border-radius: 10px;
-}
-.menu-item h3 {
-    margin-top: 10px;
-    color: #00ffff;
-    text-shadow: 0 0 10px #00ffff;
-}
-.menu-item p {
-    font-size: 18px;
-    margin-top: 5px;
-    color: #fff;
-}
-.promo-section p, .review p, .contact-section p, footer p {
-    color: #00ffff;
-    text-shadow: 0 0 8px #00ffff;
-}
-.order-section form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 400px;
-    margin: 0 auto;
-}
-.order-section input, .order-section textarea {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-}
-.order-section button {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background: #00ffff;
-    color: #111;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 15px #00ffff;
-}
-.review {
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #00ffff;
-    border-radius: 8px;
-}
-footer a {
-    color: #00ffff;
-    text-decoration: none;
-    margin: 0 5px;
-    text-shadow: 0 0 5px #00ffff;
-}
-</style>
+
+/* ---------- ZALO POPUP (PILL) ---------- */
+const zaloPill = document.getElementById('zaloPill');
+function openZaloPopup(){ document.getElementById('zaloPopup').classList.remove('hidden'); document.getElementById('zaloPopup').setAttribute('aria-hidden','false'); }
+function closeZaloPopup(){ document.getElementById('zaloPopup').classList.add('hidden'); document.getElementById('zaloPopup').setAttribute('aria-hidden','true'); }
+if(zaloPill){ zaloPill.addEventListener('click', (e)=>{ e.preventDefault(); openZaloPopup(); }); }
+
+/* ---------- POPUP CLOSE HELPERS (robust) ---------- */
+function showPopup(el){ if(!el) return; el.classList.remove('hidden'); el.setAttribute('aria-hidden','false'); el.style.display = '' }
+function hidePopup(el){ if(!el) return; el.classList.add('hidden'); el.setAttribute('aria-hidden','true'); el.style.display = 'none' }
+// attach closes
+document.addEventListener('click', function(e){
+  // close buttons
+  if(e.target.matches('.popup .close') || e.target.matches('.close-panel')){
+    const p = e.target.closest('.popup') || document.getElementById('cartPopup');
+    if(p && p.id==='qtyPopup') closeQuantityPopup();
+    else if(p && p.id==='checkoutModal') closeCheckout();
+    else if(p && p.id==='zaloPopup') closeZaloPopup();
+    else if(p && p.id==='cartPopup') closeCart();
+    else if(p) hidePopup(p);
+  }
+  // overlay click
+  if(e.target.classList && e.target.classList.contains('popup')){
+    hidePopup(e.target);
+  }
+});
+
+/* ---------- INIT ---------- */
+renderMenu(); updateCartCount();
+document.getElementById('cartBtn').addEventListener('click', openCart);
+
+</script>
+</body>
+</html>
